@@ -1,12 +1,12 @@
-import { StyleSheet, Text, View, TouchableWithoutFeedback,Image } from "react-native";
+import { StyleSheet, Text, View, TouchableWithoutFeedback,Image,Alert } from "react-native";
 import React, { useEffect } from "react";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import colors from "../../../config/colors";
+import colors from "../../config/colors";
 
 interface ImageGets {
-  imageUri: string;
-  onChangeImage: () => void;
+  imageUri: string | undefined ;
+  onChangeImage: (name :string | null) => void;
 }
 
 export default function ImageInput({ imageUri, onChangeImage }: ImageGets) {
@@ -16,7 +16,30 @@ export default function ImageInput({ imageUri, onChangeImage }: ImageGets) {
   useEffect(() => {
     requestPermission();
   }, []);
-  return <TouchableWithoutFeedback>
+  const handlePress = () => {
+    if(!imageUri){
+        selectImage();
+    }else{
+        Alert.alert('Delete','Are you shure you want to delete this Image?',[{
+            text:'Yes',onPress:() => onChangeImage(null)
+        },
+        {text:'no'}
+    ])
+    }
+}
+
+const selectImage = async () => {
+    try {
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes:ImagePicker.MediaTypeOptions.Images,
+            quality:0.5
+        });
+        if(!result.cancelled) onChangeImage(result.uri);
+    } catch (error) {
+        console.log("Error While Loading Liabrary",error);
+    }
+}
+  return <TouchableWithoutFeedback onPress={handlePress}>
         <View style={styles.container}>
                 {
                     !imageUri && (
