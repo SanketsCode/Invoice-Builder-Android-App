@@ -1,12 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import CreateCompany from './app/Pages/CreateCompany';
+import InvoiceData from './app/Pages/InvoiceData';
+import authStore from './app/config/storage';
+import AuthContext from './app/config/context';
+import { NavigationContainer } from '@react-navigation/native';
+import MainStack from './app/Navigator/MainStack';
+import AuthStack from './app/Navigator/AuthStack';
+import * as SplashScreen from 'expo-splash-screen';
+
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [companyData,setCompanyData] = useState(null);
+  const [isReady,setReady] = useState(false);
+
+  const restoreCompany = async () => {
+    const company = await authStore.getData();
+    setCompanyData(company);
+    await SplashScreen.hideAsync();
+  }
+
+  useEffect(() => {
+    restoreCompany();
+  },[])
+
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthContext.Provider value={{companyData,setCompanyData}}>
+
+      <NavigationContainer>
+        {companyData ? <MainStack /> : <AuthStack />}
+      </NavigationContainer>
+
+    </AuthContext.Provider>
   );
 }
 
