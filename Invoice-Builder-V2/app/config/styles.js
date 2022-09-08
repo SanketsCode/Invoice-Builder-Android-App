@@ -4,8 +4,8 @@ import colors from './colors';
 export default {
     colors,
     text :{
-        color:colors.dark,
+        color:'black',
         fontSize:18,
-        fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir"
+        fontFamily: 'Monst'
     }
 }

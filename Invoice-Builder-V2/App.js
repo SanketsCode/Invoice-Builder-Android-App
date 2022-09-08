@@ -9,18 +9,25 @@ import { NavigationContainer } from '@react-navigation/native';
 import MainStack from './app/Navigator/MainStack';
 import AuthStack from './app/Navigator/AuthStack';
 import * as SplashScreen from 'expo-splash-screen';
+import * as Font from 'expo-font';
 
 
 SplashScreen.preventAutoHideAsync();
+let customFonts = {
+  'Monst': require('./app/font/Monst.ttf'),
+};
 
 export default function App() {
+ 
   const [companyData,setCompanyData] = useState(null);
   const [isReady,setReady] = useState(false);
 
   const restoreCompany = async () => {
     const company = await authStore.getData();
     setCompanyData(company);
+    await Font.loadAsync(customFonts);
     await SplashScreen.hideAsync();
+
   }
 
   useEffect(() => {
