@@ -29,8 +29,6 @@ export default function CreateCompany() {
   const HandleSubmit = async({Company_Contact,Company_stamp,Company_name,Company_email,Company_address,Company_logo,Owner_Signature}) => {
     
     //Error Handle need to be done
-    
-    
     const Company = {Company_Contact,Company_stamp,Company_name,Company_email,Company_address,Company_logo,Owner_Signature};
     logIn(Company);
     // console.log(Company_Contact,Company_stamp,Company_name,Company_email,Company_address,Company_logo,Owner_Signature);
@@ -55,10 +53,10 @@ export default function CreateCompany() {
         >
           <AppText style={{marginTop:10,marginBottom:10}}>Company Logo - </AppText>
           <FormImagePicker name="Company_logo" extra="large"/>
-          <FormField maxLength={255} name="Company_name" placeholder="Company Name" />
-          <FormField maxLength={255} name="Company_email" placeholder="Company Email" />
-          <FormField name="Company_Contact" placeholder="Company Contact" />
-          <FormField name="Company_address" placeholder="Company Placeholder" />
+          <FormField icon="person" maxLength={255} name="Company_name" placeholder="Company Name" />
+          <FormField icon="mail" maxLength={255} name="Company_email" placeholder="Company Email" />
+          <FormField icon="perm-contact-cal" name="Company_Contact" placeholder="Company Contact" />
+          <FormField icon="directions" name="Company_address" placeholder="Company Address" />
           <View style={styles.ImageContainer}>
               <View style={styles.ImageContaint}>
               <FormImagePicker name="Company_stamp" />

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import CreateCompany from './app/Pages/CreateCompany';
 import InvoiceData from './app/Pages/InvoiceData';
@@ -9,36 +9,47 @@ import { NavigationContainer } from '@react-navigation/native';
 import MainStack from './app/Navigator/MainStack';
 import AuthStack from './app/Navigator/AuthStack';
 import * as SplashScreen from 'expo-splash-screen';
-import * as Font from 'expo-font';
+import {useFonts} from 'expo-font';
 
 
-SplashScreen.preventAutoHideAsync();
-let customFonts = {
-  'Monst': require('./app/font/Monst.ttf'),
-};
 
 export default function App() {
  
   const [companyData,setCompanyData] = useState(null);
   const [isReady,setReady] = useState(false);
+  const [fontsLoaded] = useFonts({
+    'Poppins': require('./app/font/Poppins.ttf'),
+  });
 
   const restoreCompany = async () => {
     const company = await authStore.getData();
     setCompanyData(company);
-    await Font.loadAsync(customFonts);
+    
     await SplashScreen.hideAsync();
 
   }
 
   useEffect(() => {
+    async function prepare() {
+      await SplashScreen.preventAutoHideAsync();
+      if (fontsLoaded) {
+        await SplashScreen.hideAsync();
+      }
+    }
     restoreCompany();
-  },[])
+    prepare();
+  }, [fontsLoaded]);
 
+
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <AuthContext.Provider value={{companyData,setCompanyData}}>
 
-      <NavigationContainer>
+      <NavigationContainer >
         {companyData ? <MainStack /> : <AuthStack />}
       </NavigationContainer>
 

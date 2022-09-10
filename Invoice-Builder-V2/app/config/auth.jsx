@@ -12,7 +12,7 @@ export default useAuth = () => {
 
     const logIn = (company) => {
         authStorage.storeData(company);
-        setCompanyData(company);
+        setCompanyData(JSON.stringify(company));
     }
 
     return {companyData,setCompanyData,logIn,logOut};
