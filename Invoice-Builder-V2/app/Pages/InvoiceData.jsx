@@ -14,10 +14,14 @@ export default function InvoiceData() {
     const [Items,setItems] = useState([]);
     const [Item_Name,setItemName] = useState('');
     const [Item_Price,setItemPrice]= useState(0);
+    const [Tax,setTax] = useState(0);
+    const [FinalAmount,setFinalAmount] = useState(0);
 
-    const HandleSubmit = (e) => {
-        e.preventDefault();
-        console.log(Item_Name,Item_Price);
+    const addItem = () => {
+        const Id = Items.length + 1;
+        setItems([...Items,{Item_Id:Id,Item_Name,Item_Price}]);
+        setItemName('');
+        setItemPrice(0);
     }
   return (
    <Screen style={styles.container}>
@@ -42,17 +46,54 @@ export default function InvoiceData() {
             </View>
             
             <View style={styles.iconButton}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => addItem()}>
                 <MaterialIcons name='add' size={30} style={styles.icon} />
                 </TouchableOpacity>
             </View>
 
             <View style={styles.ItemCardContainer}>
-                <ScrollView horizontal>
-                       <ItemCard /> 
-                       <ItemCard />
-                       <ItemCard />
+                <ScrollView horizontal={true}
+                 showsHorizontalScrollIndicator={false}
+                >
+                    <View style={{flexDirection:'row-reverse'}}>
+                    {
+                        Items.map(Item => 
+                             <ItemCard key={Item.Item_Id} id={Item.Item_Id} Name={Item.Item_Name} Price={Item.Item_Price} />
+                        )
+                    }
+                    </View>
+                       
                 </ScrollView>
+            </View>
+
+            <View style={styles.getCard}>
+            <AppText>Tax Information</AppText>
+            <AppTextInput maxLength={255} 
+            name="Tax" 
+            icon="verified" 
+            placeholder="Tax Price" 
+            value={Tax}
+            onChangeText={(e) => {
+                let Amount = 0;
+                Items.map(Item => {
+                    Amount = parseInt(Item.Item_Price) + Amount;
+                })
+
+                setTax(e);
+                let check = parseInt(e) + parseInt(Amount);
+                setFinalAmount(check);
+            }}
+            />
+            {
+                FinalAmount && <AppText>Final Amount - {FinalAmount} ₹</AppText>
+            }
+            <AppTextInput name="Final Amount"
+              placeholder="Final Amount ₹"
+               icon="attach-money"
+                keyboardType='numeric' 
+                value={FinalAmount}
+                onChangeText={(e) =>  setFinalAmount(e)}
+                />
             </View>
           
    </Screen>
@@ -91,6 +132,6 @@ const styles = StyleSheet.create({
         
     },
     ItemCardContainer:{
-        marginTop:20
+        marginTop:20,
     }   
 })

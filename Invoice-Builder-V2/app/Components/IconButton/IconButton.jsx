@@ -12,7 +12,7 @@ export default function IconButton({name,size}) {
     </View>
     <View style={styles.container}>
      
-      <AppText style={styles.text}>Create New Invoice </AppText>
+      <AppText style={styles.text}>Create Your Invoice </AppText>
     </View>
     </View>
   )

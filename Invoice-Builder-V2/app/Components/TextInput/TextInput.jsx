@@ -3,7 +3,7 @@ import React from 'react'
 import { MaterialCommunityIcons,MaterialIcons } from '@expo/vector-icons'
 import defaultStyle from '../../config/styles';
 
-export default function AppTextInput({icon,width="95%",onChangeText,...otherProps}) {
+export default function AppTextInput({icon,width="95%",onChangeText,value,...otherProps}) {
   return (
     <View style={[styles.container,{width}]}>
         {icon && <MaterialIcons
@@ -15,6 +15,7 @@ export default function AppTextInput({icon,width="95%",onChangeText,...otherProp
         <TextInput 
         placeholderTextColor={defaultStyle.colors.medium}
        onChangeText={onChangeText}
+       value={value}
         style={[defaultStyle.text,{width:"100%",paddingTop:5,paddingBottom:-3}]} {...otherProps}
         />
 
