@@ -4,7 +4,7 @@ import {MaterialCommunityIcons,AntDesign} from '@expo/vector-icons';
 import colors from '../../config/colors';
 import AppText from '../AppText/AppText';
 
-export default function IconButton({name,size}) {
+export default function IconButton({name,size,title}) {
   return (
     <View>
     <View style={styles.iconButton}>
@@ -12,7 +12,7 @@ export default function IconButton({name,size}) {
     </View>
     <View style={styles.container}>
      
-      <AppText style={styles.text}>Create Your Invoice </AppText>
+      <AppText style={styles.text}>{title}</AppText>
     </View>
     </View>
   )

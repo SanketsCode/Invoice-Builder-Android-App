@@ -10,6 +10,7 @@ import MainStack from './app/Navigator/MainStack';
 import AuthStack from './app/Navigator/AuthStack';
 import * as SplashScreen from 'expo-splash-screen';
 import {useFonts} from 'expo-font';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 
 
@@ -49,9 +50,11 @@ export default function App() {
   return (
     <AuthContext.Provider value={{companyData,setCompanyData}}>
 
-      <NavigationContainer >
+     <RootSiblingParent>
+     <NavigationContainer >
         {companyData ? <MainStack /> : <AuthStack />}
       </NavigationContainer>
+     </RootSiblingParent>
 
     </AuthContext.Provider>
   );

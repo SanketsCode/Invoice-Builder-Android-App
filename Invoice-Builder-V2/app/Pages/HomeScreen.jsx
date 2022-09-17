@@ -25,7 +25,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <Screen>
       <View style={styles.container}>
-        <IconButton name="addfile" size={40} />
+        <IconButton name="addfile" title="Create Your Invoice" size={40} />
         <Card>
           <AppText style={styles.MainText}>COMPANY DETAILS</AppText>
           <AppText>Company Name - {Company_name}</AppText>
@@ -68,7 +68,7 @@ export default function HomeScreen({ navigation }) {
             </View>
 
             <View style={styles.TextButton}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.push("feedback")}>
                 <View style={styles.iconButton}>
                   <EvilIcons color={colors.black} name="comment" size={40} />
                 </View>
@@ -87,7 +87,7 @@ export default function HomeScreen({ navigation }) {
             </View>
 
             <View style={styles.TextButton}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.push("ListInvoice")}>
                 <View style={styles.iconButton}>
                   <AntDesign color={colors.black} name="profile" size={30} />
                 </View>
