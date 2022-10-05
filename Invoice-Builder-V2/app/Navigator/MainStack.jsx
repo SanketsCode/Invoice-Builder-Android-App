@@ -4,6 +4,8 @@ import FeedBack from "../Pages/FeedBack";
 import HomeScreen from "../Pages/HomeScreen";
 import InvoiceData from "../Pages/InvoiceData";
 import InvoiceFileList from "../Pages/InvoiceFileList";
+import PickTemplate from "../Pages/PickTemplate";
+import PickYourInvoice from "../Pages/PickYourInvoice";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +19,8 @@ export default MainStack = () => {
             <Stack.Screen name="CreateInvoice" component={CreateInvoice} />
             <Stack.Screen name="feedback" component={FeedBack} />
             <Stack.Screen name="ListInvoice" component={InvoiceFileList} />
+            {/* <Stack.Screen name="PickYourInvoice" component={PickYourInvoice} /> */}
+            <Stack.Screen name="PickTemplate" component={PickTemplate} />
         </Stack.Navigator>
     )
 }

@@ -16,7 +16,7 @@ export default function AppTextInput({icon,width="95%",onChangeText,value,...oth
         placeholderTextColor={defaultStyle.colors.medium}
        onChangeText={onChangeText}
        value={value}
-        style={[defaultStyle.text,{width:"100%",paddingTop:5,paddingBottom:-3}]} {...otherProps}
+        style={[defaultStyle.text,{width:"80%",paddingTop:5,paddingBottom:-3}]} {...otherProps}
         />
 
     </View>

@@ -14,9 +14,7 @@ const validationSchema = Yup.object().shape({
   Company_Contact:Yup.string().required().label("Company Contact"),
   Company_address:Yup.string().required().label("Company Address"),
   Company_logo:Yup.string().required().label("Company Logo"),
-  Company_email:Yup.string().required().label("Company Email"),
-  Company_stamp:Yup.string().required().label("Company Stamp"),
-  Owner_Signature:Yup.string().required().label("Owner_Signature")
+  Company_email:Yup.string().required().label("Company Email")
 })
 
 
@@ -26,10 +24,10 @@ export default function CreateCompany() {
   const {logIn,logOut} = CompanyAuth();
 
   //handle submit
-  const HandleSubmit = async({Company_Contact,Company_stamp,Company_name,Company_email,Company_address,Company_logo,Owner_Signature}) => {
+  const HandleSubmit = async({Company_Contact,Company_name,Company_email,Company_address,Company_logo}) => {
     
     //Error Handle need to be done
-    const Company = {Company_Contact,Company_stamp,Company_name,Company_email,Company_address,Company_logo,Owner_Signature};
+    const Company = {Company_Contact,Company_name,Company_email,Company_address,Company_logo};
     logIn(Company);
     // console.log(Company_Contact,Company_stamp,Company_name,Company_email,Company_address,Company_logo,Owner_Signature);
   }
@@ -44,9 +42,7 @@ export default function CreateCompany() {
           Company_Contact:'',
           Company_address:'',
           Company_logo:'',
-          Company_email:'',
-          Company_stamp:'',
-          Owner_Signature:'',
+          Company_email:''
         }}
         onSubmit={HandleSubmit}
         validationSchema={validationSchema}
@@ -57,16 +53,6 @@ export default function CreateCompany() {
           <FormField icon="mail" maxLength={255} name="Company_email" placeholder="Company Email" />
           <FormField icon="perm-contact-cal" name="Company_Contact" placeholder="Company Contact" />
           <FormField icon="directions" name="Company_address" placeholder="Company Address" />
-          <View style={styles.ImageContainer}>
-              <View style={styles.ImageContaint}>
-              <FormImagePicker name="Company_stamp" />
-              <AppText style={{marginTop:-4}}>STAMP(.png)</AppText>
-              </View>
-              <View style={styles.ImageContaint}>
-              <FormImagePicker name="Owner_Signature" />
-              <AppText style={{marginTop:-4}}>SIGN(.png)</AppText>
-              </View>
-          </View>
           <SubmitButton title="Submit" />
         </Form>
       </ScrollView>

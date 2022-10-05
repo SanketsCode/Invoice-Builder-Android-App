@@ -13,12 +13,10 @@ export default function HomeScreen({ navigation }) {
   const { logOut, companyData } = useAuth();
   const {
     Company_Contact,
-    Company_stamp,
     Company_name,
     Company_email,
     Company_address,
     Company_logo,
-    Owner_Signature,
   } = JSON.parse(companyData);
 
   // console.log(companyData);
@@ -26,30 +24,26 @@ export default function HomeScreen({ navigation }) {
     <Screen>
       <View style={styles.container}>
         <IconButton name="addfile" title="Create Your Invoice" size={40} />
+        
+         
+  
         <Card>
-          <AppText style={styles.MainText}>COMPANY DETAILS</AppText>
-          <AppText>Company Name - {Company_name}</AppText>
-          <AppText>Company Contact - {Company_Contact}</AppText>
-          <AppText>Company Address - {Company_address}</AppText>
-        </Card>
-        <Card>
-          <AppText style={styles.MainText}>Signature & Stamp</AppText>
+        <AppText style={styles.MainText}>Logo</AppText>
           <View style={styles.ImgContainer}>
             <Image
               style={styles.image}
               source={{
-                uri: Owner_Signature,
+                uri: Company_logo,
               }}
             />
 
-            <Image
-              style={styles.image}
-              source={{
-                uri: Company_stamp,
-              }}
-            />
           </View>
+          {/* <AppText style={styles.MainText}>COMPANY DETAILS</AppText> */}
+          <AppText>Company Name - {Company_name}</AppText>
+          <AppText>Company Contact - {Company_Contact}</AppText>
+          <AppText>Company Address - {Company_address}</AppText>
         </Card>
+        
         <Card>
           <View style={styles.ButtonContainer}>
             <View style={styles.TextButton}>
@@ -87,7 +81,7 @@ export default function HomeScreen({ navigation }) {
             </View>
 
             <View style={styles.TextButton}>
-              <TouchableOpacity onPress={() => navigation.push("ListInvoice")}>
+              <TouchableOpacity onPress={() => navigation.push("PickYourInvoice")}>
                 <View style={styles.iconButton}>
                   <AntDesign color={colors.black} name="profile" size={30} />
                 </View>
@@ -117,15 +111,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   image: {
-    height: 150,
+    height: 170,
     width: 170,
-    borderRadius: 10,
+    borderRadius: 100,
     elevation: 4,
+    marginBottom:10
   },
 
   ImgContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
   ButtonContainer: {
     padding: 10,

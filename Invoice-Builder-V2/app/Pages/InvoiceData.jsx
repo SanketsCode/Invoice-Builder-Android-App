@@ -17,6 +17,7 @@ import ColorContainer from "../Components/ColorContainer/ColorContainer";
 import colors from "../config/colors";
 import IconButton from "../Components/IconButton/IconButton";
 import Toast from 'react-native-root-toast';
+import PickTemplate from "./PickTemplate";
 
 
 
@@ -39,14 +40,17 @@ export default function InvoiceData({navigation}) {
     setItemName('');
     setItemPrice(null);
     setItemQuantity(null);
-    setTax(0);
     setFinalAmount(null);
+    setTax(0);
     setColor(null);
     setIsEnabled(false);
   }
 
 
   const addItem = () => {
+    if(!Item_Name || !Item_Quantity || !Item_Price){
+      return Toast.show("Neet to fill all Data",Toast.durations.SHORT);
+    }
     setItems([
       ...Items,
       {
@@ -73,7 +77,7 @@ export default function InvoiceData({navigation}) {
   };
 
   //Moving Data to next
-  const moveNext = () => {
+  const moveNext = async () => {
     
             
       //check for if data is not valid
@@ -89,23 +93,20 @@ export default function InvoiceData({navigation}) {
         });
       }
 
-      if(!FinalAmount){
-        let Amount = 0;
-        Items.map((Item) => {
-          Amount = parseInt(Item.Final_Price) + Amount;
-        });
-        setFinalAmount(Amount);
-      }
-
       let myTax = Tax ? Tax : 0;
-
-
+        let Amount = 0;
+          Items.map((Item) => {
+            Amount = parseInt(Item.Final_Price) + Amount;
+          });
+         
+        
+      
       navigation.push("CreateInvoice",{
         InvoiceData : {
           Items,
           Tax:myTax,
           color,
-          FinalAmount
+          FinalAmount : Amount + parseInt(myTax)
         }
       });
       
@@ -119,6 +120,7 @@ export default function InvoiceData({navigation}) {
   };
   return (
     <Screen>
+      {/* <PickTemplate /> */}
       <View style={styles.container}>
         <IconButton title="Fill Invoice Details" name="edit" size={40} />
         <View style={styles.getCard}>
@@ -209,15 +211,6 @@ export default function InvoiceData({navigation}) {
                   let check = parseInt(e) + parseInt(Amount);
                   setFinalAmount(check);
                 }}
-              />
-
-              <AppTextInput
-                name="Final Amount"
-                placeholder="Final Amount ₹"
-                icon="attach-money"
-                keyboardType="numeric"
-                value={FinalAmount}
-                onChangeText={(e) => setFinalAmount(e)}
               />
             </View>
           )}

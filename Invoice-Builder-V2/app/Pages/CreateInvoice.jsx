@@ -7,35 +7,61 @@ import colors from "../config/colors";
 import IconButton from "../Components/IconButton/IconButton";
 import AppTextInput from "../Components/TextInput/TextInput";
 import { AntDesign } from "@expo/vector-icons";
+import Toast from "react-native-root-toast";
 
-export default function CreateInvoice({ route }) {
+export default function CreateInvoice({ route,navigation }) {
     const [customerName,setCustomerName] = useState('');
     const [customerPhone,setCustomerPhone] = useState('');
     const [customerAddress,setCustomerAddress] = useState('');
   const { companyData } = useAuth();
   const {
     Company_Contact,
-    Company_stamp,
     Company_name,
     Company_email,
     Company_address,
-    Company_logo,
-    Owner_Signature,
+    Company_logo
   } = JSON.parse(companyData);
 
   const { Items, color, Tax, FinalAmount } = route.params.InvoiceData;
+
+  console.log(FinalAmount);
+
+  const HandleSubmit = () => {
+    if(!customerAddress || !customerName || !customerName){
+      return Toast.show("Fill Customer Details",Toast.durations.SHORT);
+    }
+    const allData = {
+      customerName,
+      customerAddress,
+      customerPhone,
+      Company_Contact,
+      Company_name,
+      Company_email,
+      Company_address,
+      Company_logo,
+      Items,
+      color,
+      Tax,
+      FinalAmount
+    }
+
+    navigation.push("PickTemplate",{
+      allData
+    });
+
+  }
+
   return (
     <Screen>
       <View style={styles.container}>
         <IconButton title="Check Your Details" name="edit" size={40} />
-
-        {/* Showing the Items  */}
         <View style={styles.ItemCardContainer}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {Items.map((item, i) => {
+              
               const { Item_Name, Item_Price, Item_Quantity, Final_Price } =
                 item;
-
+                // setNewFinalAmount(newFinalAmount + parseInt(Item_Price));
               return (
                 <View key={i + 1} style={styles.ItemCard}>
                   <AppText>id - {i + 1}</AppText>
@@ -48,13 +74,13 @@ export default function CreateInvoice({ route }) {
             })}
           </ScrollView>
         </View>
-        {/* Bill Details  */}
+
         <Card>
           <AppText style={{ textAlign: "center" }}>Bill Details</AppText>
           <AppText>Tax - {Tax} ₹</AppText>
           <AppText>Final Amount - {FinalAmount} ₹</AppText>
         </Card>
-        {/* Company Details  */}
+     
         <Card>
           <AppText style={{ textAlign: "center" }}>Company Details</AppText>
           <AppText>Name - {Company_name}</AppText>
@@ -62,7 +88,7 @@ export default function CreateInvoice({ route }) {
           <AppText>Phone no - {Company_Contact}</AppText>
           <AppText>address - {Company_address}</AppText>
         </Card>
-        {/* get customer details  */}
+    
         <View style={styles.getCard}>
           <AppText>Customer Details</AppText>
           <AppTextInput
@@ -88,7 +114,7 @@ export default function CreateInvoice({ route }) {
             onChangeText={(e) => setCustomerAddress(e)}
           />
         </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => HandleSubmit()}>
             <View style={styles.button}>
                 <AntDesign name="arrowright" size={30} />
             </View>
