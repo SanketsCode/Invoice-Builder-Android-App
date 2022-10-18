@@ -180,7 +180,7 @@ export default function InvoiceData({navigation}) {
           </ScrollView>
         </View>
 
-        <View style={styles.getCard}>
+      {Items[0] && <View style={styles.getCard}>
           <View style={styles.TaxSwitch}>
             <AppText>Tax Information</AppText>
             <Switch
@@ -192,7 +192,7 @@ export default function InvoiceData({navigation}) {
               style={{ alignSelf: "flex-end" }}
             />
           </View>
-          {isEnabled && (
+          {isEnabled  && (
             <View style={{ padding: 10 }}>
               <AppTextInput
                 maxLength={255}
@@ -217,6 +217,8 @@ export default function InvoiceData({navigation}) {
 
           {FinalAmount && <AppText>Final Amount - {FinalAmount} ₹</AppText>}
         </View>
+        
+        }
 
         <ColorContainer onSetColor={setColorName} color={color} />
 
