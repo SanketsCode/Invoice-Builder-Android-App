@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 export default function SubmitButton({title}) {
     const {handleSubmit} = useFormikContext();
   return (
-   <Button title={title} onPress={handleSubmit}/>
+   <Button  title={title} onPress={handleSubmit}/>
   )
 }
 

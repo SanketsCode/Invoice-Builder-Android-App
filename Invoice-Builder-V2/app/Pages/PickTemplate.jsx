@@ -38,7 +38,7 @@ export default function PickTemplate({ route,navigation }) {
 
   return (
     <>
-    <ActivityIndicator visible={true} />
+    {/* <ActivityIndicator visible={true} /> */}
     <View style={styles.container}>
       {/* <StatusBar hidden /> */}
       <FlatList
