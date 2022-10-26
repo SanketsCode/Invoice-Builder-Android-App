@@ -17,7 +17,7 @@ export default function PickTemplate({ route,navigation }) {
   const ITEM_HEIGHT = ITEM_WIDTH * 1.47;
 
   const allData = route.params.allData;
-  console.log(allData);
+
 
 
   const createInvoice = (name) => {
@@ -32,7 +32,7 @@ export default function PickTemplate({ route,navigation }) {
         case 'Temp2':
             break;
         default:
-            return Toast.show("Not Available Yet");
+            return Toast.show("Not Available Yet",Toast.durations.SHORT);
     }
   }
 

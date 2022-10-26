@@ -12,8 +12,10 @@ const Stack = createStackNavigator();
 export default MainStack = () => {
     return (
         <Stack.Navigator screenOptions={{
-            headerShown:false
-        }}>
+            headerShown:false,
+             
+        }}
+        >
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="getInvoiceData" component={InvoiceData} />
             <Stack.Screen name="CreateInvoice" component={CreateInvoice} />

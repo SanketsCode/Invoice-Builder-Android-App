@@ -31,7 +31,7 @@ export default function InvoiceData({navigation}) {
   const [color, setColor] = useState(null);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-  
+
   
 
   //Reset Form

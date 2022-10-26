@@ -35,7 +35,7 @@ export default function CreateCompany() {
   return (
   <>
    <Screen style={styles.container}>
-      <ScrollView>
+   
         <Form 
         initialValues={{
           Company_name:'',
@@ -55,7 +55,7 @@ export default function CreateCompany() {
           <FormField icon="directions" name="Company_address" placeholder="Company Address" />
           <SubmitButton title="Submit" />
         </Form>
-      </ScrollView>
+     
     </Screen>
   </>
   )

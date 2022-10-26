@@ -19,10 +19,9 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         padding: 15,
-        width:"100%",
+        width:"90%",
         marginVertical:10,
-        elevation:4,marginBottom:20
-    
+        elevation:4,marginBottom:20,alignSelf:'center'
     },
     text : {
         color :colors.white,

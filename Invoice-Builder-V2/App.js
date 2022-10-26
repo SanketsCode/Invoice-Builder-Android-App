@@ -51,7 +51,7 @@ export default function App() {
     <AuthContext.Provider value={{companyData,setCompanyData}}>
 
      <RootSiblingParent>
-     <NavigationContainer >
+     <NavigationContainer  >
         {companyData ? <MainStack /> : <AuthStack />}
       </NavigationContainer>
      </RootSiblingParent>

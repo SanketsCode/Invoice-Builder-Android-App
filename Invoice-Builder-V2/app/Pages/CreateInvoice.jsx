@@ -24,7 +24,7 @@ export default function CreateInvoice({ route,navigation }) {
 
   const { Items, color, Tax, FinalAmount } = route.params.InvoiceData;
 
-  console.log(FinalAmount);
+ 
 
   const HandleSubmit = () => {
     if(!customerAddress || !customerName || !customerName){
