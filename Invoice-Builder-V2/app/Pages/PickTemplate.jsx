@@ -9,10 +9,13 @@ import dateFormat, { masks } from "dateformat";
 import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import Temp1 from "../Components/TemplateCodes/Temp1";
+import Temp2 from "../Components/TemplateCodes/Temp2";
+import Temp3 from "../Components/TemplateCodes/Temp3";
 
 
 
 export default function PickTemplate({ route,navigation }) {
+  const [loading,setLoading] = useState(false);
   const data = Templates.map((template, index) => ({
     key: template.key,
     photo: template.img,
@@ -57,32 +60,39 @@ export default function PickTemplate({ route,navigation }) {
 
 
   const createInvoice = async (name) => {
+    setLoading(true);
     if(!name){
+        setLoading(false);
         return Toast.show("Something go Wrong",Toast.durations.SHORT);
 
     }
-
+    let newHtml;
     switch (name){
         case 'Temp1':
           //  {console.log("Temp 1 is selected");}
-           let newHtml = Temp1(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone,newDate);
+           newHtml = Temp1(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone,newDate);
            await PrintPDF(newHtml);
            break;
         case 'Temp2':
-          {console.log("Temp 2 is selected");}
-            break;
+          // {console.log("Temp 2 is selected");}
+          newHtml = Temp2(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone,newDate);
+          await PrintPDF(newHtml);
+          break;
         case 'Temp3':
-          {console.log("Temp 1 is selected");}
+          // {console.log("Temp 1 is selected");}
+          newHtml = Temp3(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone,newDate);
+          await PrintPDF(newHtml);
           break;
         default:
+          setLoading(false);
             return Toast.show("Not Available Yet",Toast.durations.SHORT);
     }
-
+    setLoading(false);
   }
 
   return (
     <>
-    {/* <ActivityIndicator visible={true} /> */}
+    <ActivityIndicator visible={loading} />
     <View style={styles.container}>
       {/* <StatusBar hidden /> */}
       <FlatList

@@ -7,6 +7,9 @@ const Temp1 = (Company_Contact,Company_address,Company_email,Company_logo,Compan
     //   console.log(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone);
     //         return Toast.show("Data Invalid",Toast.durations.SHORT);
     // }
+
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
     
     let newColor = InvoiceColors[color];
 
@@ -38,7 +41,7 @@ const Temp1 = (Company_Contact,Company_address,Company_email,Company_logo,Compan
           "
           >
               <h5 style="height:20px; margin-bottom: -10px;">Invoice No :${Date.now()}</h5>
-              <p style="height:20px;">Date:  </p>
+              <p style="height:20px;">Date: ${today.toDateString()} </p>
           </div>
           
           <!-- logo  -->
