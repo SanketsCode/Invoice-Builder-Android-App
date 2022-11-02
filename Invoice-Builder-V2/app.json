@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Invoice-Builder-V2",
-    "slug": "Invoice-Builder-V2",
-    "version": "1.0.0",
+    "name": "Quick Invoice Creator",
+    "slug": "Quick Invoice Creator",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,6 +21,7 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

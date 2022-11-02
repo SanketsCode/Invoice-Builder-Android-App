@@ -6,6 +6,9 @@ import { Form, FormField, FormImagePicker, SubmitButton } from '../Components/Fo
 import colors from '../config/colors';
 import AppText from '../Components/AppText/AppText';
 import CompanyAuth from '../config/auth';
+import Firebase from '../config/firebase';
+import ActivityIndicator from '../Components/ActivityIndicator/ActivityIndicator';
+import Toast from 'react-native-root-toast';
 
 
 
@@ -25,15 +28,24 @@ export default function CreateCompany() {
 
   //handle submit
   const HandleSubmit = async({Company_Contact,Company_name,Company_email,Company_address,Company_logo}) => {
-    
+    setLoading(true);
     //Error Handle need to be done
-    const Company = {Company_Contact,Company_name,Company_email,Company_address,Company_logo};
+    
+    let response = await fetch(Company_logo);
+    let blob = await response.blob();
+    let ref = Firebase.storage().ref().child(`User/${Date.now()}`);
+    await ref.put(blob);
+    let link = await ref.getDownloadURL();
+    Toast.show("Your Image Added", Toast.durations.SHORT);
+    const Company = {Company_Contact,Company_name,Company_email,Company_address,Company_logo:link};
     logIn(Company);
     // console.log(Company_Contact,Company_stamp,Company_name,Company_email,Company_address,Company_logo,Owner_Signature);
+    setLoading(false);
   }
 
   return (
   <>
+  <ActivityIndicator  visible={loading} />
    <Screen style={styles.container}>
    
         <Form 
