@@ -6,6 +6,10 @@ export default [
 {
     "key":"Temp2",
     "img":require('./Template2.png')
+},
+{
+    "key":"Temp3",
+    "img":require('./Template3.png')
 }
 ];
   

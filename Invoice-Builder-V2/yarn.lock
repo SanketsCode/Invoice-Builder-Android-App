@@ -2762,6 +2762,11 @@
   "resolved" "https://registry.npmjs.org/dag-map/-/dag-map-1.0.2.tgz"
   "version" "1.0.2"
 
+"dateformat@^5.0.3":
+  "integrity" "sha512-Kvr6HmPXUMerlLcLF+Pwq3K7apHpYmGDVqrxcDasBg86UcKeTSNWbEzU8bwdXnxnR44FtMhJAxI4Bov6Y/KUfA=="
+  "resolved" "https://registry.npmjs.org/dateformat/-/dateformat-5.0.3.tgz"
+  "version" "5.0.3"
+
 "dayjs@^1.8.15":
   "integrity" "sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA=="
   "resolved" "https://registry.npmjs.org/dayjs/-/dayjs-1.11.5.tgz"
@@ -3170,10 +3175,20 @@
     "compare-versions" "^3.4.0"
     "invariant" "^2.2.4"
 
+"expo-print@^11.3.0":
+  "integrity" "sha512-7pMpVktom6xEvxoniI10gZ3X1EX7mxdKbOkfaeb7MdvFNC7XfuRn3k/y+oo3+wzLHJL2+wgN4gSOjagS22Wz3A=="
+  "resolved" "https://registry.npmjs.org/expo-print/-/expo-print-11.3.0.tgz"
+  "version" "11.3.0"
+
 "expo-secure-store@^11.3.0":
   "integrity" "sha512-k8dw1v7MCHIv7MnAIBXqyqplJo0I5MmRjZXO7bsVPb/BqWvvfBo/JAFdM6K60X6szh+13TWgxwx6GxAkCJVUnQ=="
   "resolved" "https://registry.npmjs.org/expo-secure-store/-/expo-secure-store-11.3.0.tgz"
   "version" "11.3.0"
+
+"expo-sharing@^10.3.0":
+  "integrity" "sha512-j3kn43WCOykj7mlGTb5Q3Z56DG8raFdTk0A+rauA7lsmJ5Vakb2qGyTFZ7uwqwrML10EQIPAzNEcEYgpIzHKIw=="
+  "resolved" "https://registry.npmjs.org/expo-sharing/-/expo-sharing-10.3.0.tgz"
+  "version" "10.3.0"
 
 "expo-splash-screen@^0.16.2":
   "integrity" "sha512-AHSRyGwu58WNt8shW5g/4cQ9e9IzUwNTC/WGWxshHCwgbWIJmHLvK3+D45MTmzGWteOoTI8oV7KSQKBNJSTiyw=="
