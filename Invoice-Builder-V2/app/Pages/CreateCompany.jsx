@@ -31,14 +31,18 @@ export default function CreateCompany() {
     setLoading(true);
     //Error Handle need to be done
     
+   try {
     let response = await fetch(Company_logo);
     let blob = await response.blob();
-    let ref = Firebase.storage().ref().child(`User/${Date.now()}`);
+    let ref = Firebase.storage().ref().child(`User/${Date.now()}}`);
     await ref.put(blob);
     let link = await ref.getDownloadURL();
     Toast.show("Your Image Added", Toast.durations.SHORT);
     const Company = {Company_Contact,Company_name,Company_email,Company_address,Company_logo:link};
     logIn(Company);
+   } catch (error) {
+    console.log(error);
+   }
     // console.log(Company_Contact,Company_stamp,Company_name,Company_email,Company_address,Company_logo,Owner_Signature);
     setLoading(false);
   }

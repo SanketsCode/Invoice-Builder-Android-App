@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity, Linking, Share } from "react-native";
 import React from "react";
 import Button from "../Components/Button/Button";
 import useAuth from "../config/auth";
@@ -8,6 +8,7 @@ import AppText from "../Components/AppText/AppText";
 import IconButton from "../Components/IconButton/IconButton";
 import { AntDesign, EvilIcons, Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
+import Toast from "react-native-root-toast";
 
 export default function HomeScreen({ navigation }) {
   const { logOut, companyData } = useAuth();
@@ -18,6 +19,12 @@ export default function HomeScreen({ navigation }) {
     Company_address,
     Company_logo,
   } = JSON.parse(companyData);
+
+  const ShareApp = async () => {
+    await Share.share({
+      message: 'https://play.google.com/store/apps/details?id=in.codemock.quick_invoice_builder',
+    });
+  }
 
   // console.log(companyData);
   return (
@@ -72,7 +79,7 @@ export default function HomeScreen({ navigation }) {
             </View>
 
             <View style={styles.TextButton}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => ShareApp()}>
                 <View style={styles.iconButton}>
                   <AntDesign color={colors.black} name="sharealt" size={30} />
                 </View>
@@ -81,7 +88,7 @@ export default function HomeScreen({ navigation }) {
             </View>
 
             <View style={styles.TextButton}>
-              <TouchableOpacity onPress={() => navigation.push("PickYourInvoice")}>
+              <TouchableOpacity onPress={() => Toast.show("Coming Soon")}>
                 <View style={styles.iconButton}>
                   <AntDesign color={colors.black} name="profile" size={30} />
                 </View>

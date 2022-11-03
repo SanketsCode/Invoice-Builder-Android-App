@@ -5,7 +5,7 @@ import Constants from 'expo-constants'
 export default function Screen({children,style}) {
   return (
    <SafeAreaView 
-   style={[styles.screen,style]}>
+      style={[styles.screen,style]}>
         <ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
         {children}
         </ScrollView>

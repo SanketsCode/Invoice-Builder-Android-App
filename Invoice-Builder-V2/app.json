@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Quick Invoice Creator",
-    "slug": "Quick Invoice Creator",
-    "version": "1.0.1",
+    "name": "Invoice Builder",
+    "slug": "Invoice-Builder",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -11,21 +11,26 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "extra": {
+      "eas": {
+        "projectId": "56c0892d-795d-48e2-a196-d3320195ecda"
+      }
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 2,
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "in.sanketscode.invoice_builder",
+      "permissions": ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
