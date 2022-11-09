@@ -4,7 +4,7 @@ export default {
   expo: {
     name: "Invoice Builder",
     slug: "invoice-builder",
-    version: "1.0.0",
+    version: "1.0.2",
     orientation: "portrait",
     icon: "./assets/icon.png",
     splash: {
@@ -41,7 +41,7 @@ export default {
     },
     android: {
       package: "in.sanketscode.invoice_builder",
-      versionCode: 1,
+      versionCode: 2,
       permissions: ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
     },
   },

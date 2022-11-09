@@ -13,11 +13,11 @@ import Toast from 'react-native-root-toast';
 
 
 const validationSchema = Yup.object().shape({
-  Company_name:Yup.string().required().min(1).label("Company Name"),
-  Company_Contact:Yup.string().required().label("Company Contact"),
-  Company_address:Yup.string().required().label("Company Address"),
-  Company_logo:Yup.string().required().label("Company Logo"),
-  Company_email:Yup.string().required().label("Company Email")
+  Company_name:Yup.string().label("Company Name"),
+  Company_Contact:Yup.string().label("Company Contact"),
+  Company_address:Yup.string().label("Company Address"),
+  Company_logo:Yup.string().label("Company Logo"),
+  Company_email:Yup.string().label("Company Email")
 })
 
 
@@ -30,19 +30,30 @@ export default function CreateCompany() {
   const HandleSubmit = async({Company_Contact,Company_name,Company_email,Company_address,Company_logo}) => {
     setLoading(true);
     //Error Handle need to be done
+    console.log(Company_Contact,Company_name,Company_email,Company_address,Company_logo);
+    if(!Company_Contact || !Company_name|| !Company_email|| !Company_address){
+      setLoading(false);
+      return Toast.show("Please Fill All Fields",Toast.durations.SHORT);
+    }else{
+      
+      try {
+        let link = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+       if(Company_logo){
+           let response = await fetch(Company_logo);
+         let blob = await response.blob();
+         let ref = Firebase.storage().ref().child(`User/${Date.now()}}`);
+         await ref.put(blob);
+        link = await ref.getDownloadURL();
+         Toast.show("Your Image Added", Toast.durations.SHORT);
+        }
+      
+       const Company = {Company_Contact,Company_name,Company_email,Company_address,Company_logo:link};
+       logIn(Company);
+      } catch (error) {
+       console.log(error);
+      }
+    }
     
-   try {
-    let response = await fetch(Company_logo);
-    let blob = await response.blob();
-    let ref = Firebase.storage().ref().child(`User/${Date.now()}}`);
-    await ref.put(blob);
-    let link = await ref.getDownloadURL();
-    Toast.show("Your Image Added", Toast.durations.SHORT);
-    const Company = {Company_Contact,Company_name,Company_email,Company_address,Company_logo:link};
-    logIn(Company);
-   } catch (error) {
-    console.log(error);
-   }
     // console.log(Company_Contact,Company_stamp,Company_name,Company_email,Company_address,Company_logo,Owner_Signature);
     setLoading(false);
   }
