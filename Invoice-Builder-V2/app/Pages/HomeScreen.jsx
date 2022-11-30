@@ -22,7 +22,7 @@ export default function HomeScreen({ navigation }) {
 
   const ShareApp = async () => {
     await Share.share({
-      message: 'https://play.google.com/store/apps/details?id=in.sanketscode.invoice_builder',
+      message: 'https://play.google.com/store/apps/details?id=in.codemock.invoice_builder',
     });
   }
 

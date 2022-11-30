@@ -40,7 +40,7 @@ export default {
       },
     },
     android: {
-      package: "in.sanketscode.invoice_builder",
+      package: "in.codemock.invoice_builder",
       versionCode: 1,
       permissions: ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
     },
