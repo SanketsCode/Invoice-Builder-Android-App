@@ -41,7 +41,7 @@ export default function CreateCompany() {
        if(Company_logo){
            let response = await fetch(Company_logo);
          let blob = await response.blob();
-         let ref = Firebase.storage().ref().child(`User/${Date.now()}}`);
+         let ref = Firebase.storage().ref().child(`Invoice_User/${Date.now()}`);
          await ref.put(blob);
         link = await ref.getDownloadURL();
          Toast.show("Your Image Added", Toast.durations.SHORT);
