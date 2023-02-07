@@ -1,17 +1,53 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity, Linking, Share } from "react-native";
-import React from "react";
-import Button from "../Components/Button/Button";
-import useAuth from "../config/auth";
-import Screen from "../Components/Screen/Screen";
-import Card from "../Components/Basic_Card/Card";
-import AppText from "../Components/AppText/AppText";
-import IconButton from "../Components/IconButton/IconButton";
 import { AntDesign, EvilIcons, Ionicons } from "@expo/vector-icons";
-import colors from "../config/colors";
+import React from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Share,
+} from "react-native";
 import Toast from "react-native-root-toast";
+import AppText from "../components/AppText/AppText";
+import Card from "../components/Basic_Card/Basic_Card";
+import Button from "../components/Button/Button";
+import IconButton from "../components/IconButton/IconButton";
+import Screen from "../components/Screen/Screen";
+import useAuth from "../config/auth";
+import colors from "../config/colors";
 
 export default function HomeScreen({ navigation }) {
   const { logOut, companyData } = useAuth();
+
+  const ShareApp = async () => {
+    await Share.share({
+      message:
+        "https://play.google.com/store/apps/details?id=in.codemock.invoice_builder",
+    });
+  };
+
+  const IconTextButton = ({ onPress, iconName, text, nameofVector }) => {
+    return (
+      <View style={styles.TextButton}>
+        <TouchableOpacity onPress={onPress}>
+          <View style={styles.iconButton}>
+            {nameofVector === "Ionicons" && (
+              <Ionicons color={colors.black} name={iconName} size={40} />
+            )}
+            {nameofVector === "EvilIcons" && (
+              <EvilIcons color={colors.black} name={iconName} size={40} />
+            )}
+            {nameofVector === "AntDesign" && (
+              <AntDesign color={colors.black} name={iconName} size={30} />
+            )}
+          </View>
+        </TouchableOpacity>
+        <AppText>{text}</AppText>
+      </View>
+    );
+  };
+
   const {
     Company_Contact,
     Company_name,
@@ -19,23 +55,13 @@ export default function HomeScreen({ navigation }) {
     Company_address,
     Company_logo,
   } = JSON.parse(companyData);
-
-  const ShareApp = async () => {
-    await Share.share({
-      message: 'https://play.google.com/store/apps/details?id=in.codemock.invoice_builder',
-    });
-  }
-
-  // console.log(companyData);
+  // console.log(Company_logo);
   return (
     <Screen>
       <View style={styles.container}>
         <IconButton name="addfile" title="Create Your Invoice" size={40} />
-        
-         
-  
         <Card>
-        <AppText style={styles.MainText}>Logo</AppText>
+          <AppText style={styles.MainText}>Logo</AppText>
           <View style={styles.ImgContainer}>
             <Image
               style={styles.image}
@@ -43,67 +69,41 @@ export default function HomeScreen({ navigation }) {
                 uri: Company_logo,
               }}
             />
-
           </View>
-          {/* <AppText style={styles.MainText}>COMPANY DETAILS</AppText> */}
           <AppText>Company Name - {Company_name}</AppText>
           <AppText>Company Contact - {Company_Contact}</AppText>
           <AppText>Company Address - {Company_address}</AppText>
         </Card>
-        
+
         <Card>
           <View style={styles.ButtonContainer}>
-            <View style={styles.TextButton}>
-              <TouchableOpacity
-                onPress={() => navigation.push("getInvoiceData")}
-              >
-                <View style={styles.iconButton}>
-                  <Ionicons
-                    color={colors.black}
-                    name="create-outline"
-                    size={40}
-                  />
-                </View>
-              </TouchableOpacity>
-              <AppText>Create Invoice</AppText>
-            </View>
-
-            <View style={styles.TextButton}>
-              <TouchableOpacity onPress={() => navigation.push("feedback")}>
-                <View style={styles.iconButton}>
-                  <EvilIcons color={colors.black} name="comment" size={40} />
-                </View>
-              </TouchableOpacity>
-
-              <AppText>Give Feedback</AppText>
-            </View>
-
-            <View style={styles.TextButton}>
-              <TouchableOpacity onPress={() => ShareApp()}>
-                <View style={styles.iconButton}>
-                  <AntDesign color={colors.black} name="sharealt" size={30} />
-                </View>
-              </TouchableOpacity>
-              <AppText>Share App</AppText>
-            </View>
-
-            <View style={styles.TextButton}>
-              <TouchableOpacity onPress={() => Toast.show("Coming Soon")}>
-                <View style={styles.iconButton}>
-                  <AntDesign color={colors.black} name="profile" size={30} />
-                </View>
-              </TouchableOpacity>
-              <AppText>Invoice List</AppText>
-            </View>
+            <IconTextButton
+              onPress={() => navigation.push("getInvoiceData")}
+              iconName="create-outline"
+              text="Create Invoice"
+              nameofVector="Ionicons"
+            />
+            <IconTextButton
+              onPress={() => navigation.push("feedback")}
+              iconName="comment"
+              text="Give Feedback"
+              nameofVector="EvilIcons"
+            />
+            <IconTextButton
+              onPress={() => ShareApp()}
+              iconName="sharealt"
+              text="Share App"
+              nameofVector="AntDesign"
+            />
+            <IconTextButton
+              onPress={() => Toast.show("Coming Soon")}
+              iconName="profile"
+              text="Invoice List"
+              nameofVector="AntDesign"
+            />
           </View>
         </Card>
-
-        <Button
-          title="Log out"
-          onPress={() => {
-            logOut();
-          }}
-        />
+        <Button title="Log Out" onPress={() => logOut()} />
       </View>
     </Screen>
   );
@@ -122,10 +122,10 @@ const styles = StyleSheet.create({
     width: 170,
     borderRadius: 100,
     elevation: 4,
-    marginBottom:10
+    marginBottom: 10,
   },
-
   ImgContainer: {
+    marginTop: 10,
     flexDirection: "row",
     justifyContent: "center",
   },
@@ -145,6 +145,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.white,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
     elevation: 10,
     borderRadius: 50,
   },

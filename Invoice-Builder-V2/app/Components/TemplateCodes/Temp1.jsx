@@ -1,19 +1,32 @@
-import Toast from "react-native-root-toast"
-import InvoiceColors from "../../config/InvoiceColors";
+import Toast from "react-native-root-toast";
+import InvoiceColors from "../../config/InvoiceColor";
 
-const Temp1 = (Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone,newDate) => {
-    
-    // if(!Company_Contact || !Company_address || !Company_email || !Company_logo || !Company_name || !FinalAmount ||  !Items || !Tax || !color || !customerAddress || !customerName || !customerPhone){
-    //   console.log(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone);
-    //         return Toast.show("Data Invalid",Toast.durations.SHORT);
-    // }
+const Temp1 = (
+  Company_Contact,
+  Company_address,
+  Company_email,
+  Company_logo,
+  Company_name,
+  FinalAmount,
+  Items,
+  Tax,
+  color,
+  customerAddress,
+  customerName,
+  customerPhone,
+  newDate
+) => {
+  // if(!Company_Contact || !Company_address || !Company_email || !Company_logo || !Company_name || !FinalAmount ||  !Items || !Tax || !color || !customerAddress || !customerName || !customerPhone){
+  //   console.log(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone);
+  //         return Toast.show("Data Invalid",Toast.durations.SHORT);
+  // }
 
-    const timeElapsed = Date.now();
-    const today = new Date(timeElapsed);
-    
-    let newColor = InvoiceColors[color];
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
 
-    return `
+  let newColor = InvoiceColors[color];
+
+  return `
     <html>
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
@@ -109,9 +122,8 @@ const Temp1 = (Company_Contact,Company_address,Company_email,Company_logo,Compan
             <th style="height: 30px; ">Total</th>
           </tr>           
 
-          ${
-                Items.map(item => {
-                    return `
+          ${Items.map((item) => {
+            return `
                 <tr style="background-color: transparent;
                 ">
                   <td style="text-align: center;height: 30px;">${item["Item_Name"]}</td>
@@ -119,9 +131,8 @@ const Temp1 = (Company_Contact,Company_address,Company_email,Company_logo,Compan
                   <td style="text-align: center;height: 30px;">${item["Item_Quantity"]}</td>
                   <td style="text-align: center;height: 30px;">${item["Final_Price"]}</td>
                 </tr>
-                    `
-                })
-          }
+                    `;
+          })}
             
            
           </table>
@@ -131,11 +142,7 @@ const Temp1 = (Company_Contact,Company_address,Company_email,Company_logo,Compan
   
          <div style="display: flex; flex-direction: row; justify-content: space-between; height: 40px;">
           <h5>Product Price</h5>
-          <h5>${
-
-                parseInt(FinalAmount) - parseInt(Tax)
-
-          }</h5>
+          <h5>${parseInt(FinalAmount) - parseInt(Tax)}</h5>
          </div>
   
          <div style="display: flex; flex-direction: row; justify-content: space-between; height: 40px;">
@@ -157,6 +164,6 @@ const Temp1 = (Company_Contact,Company_address,Company_email,Company_logo,Compan
     </body>
   </html>
     `;
-}
+};
 
 export default Temp1;

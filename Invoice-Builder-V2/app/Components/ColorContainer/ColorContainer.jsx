@@ -6,12 +6,14 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import InvoiceColors from "../../config/InvoiceColors";
+import InvoiceColors from "../../config/InvoiceColor";
 import AppText from "../AppText/AppText";
 import colors from "../../config/colors";
+import defaultStyles from "../../config/styles";
+
 export default function ColorContainer({ onSetColor, color }) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, defaultStyles.background]}>
       <AppText>Select Your Color - </AppText>
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         {Object.keys(InvoiceColors).map((key) => {

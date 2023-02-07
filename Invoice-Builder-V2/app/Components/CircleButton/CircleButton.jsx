@@ -1,26 +1,29 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import {EvilIcons} from 'react-native-vector-icons'
-import colors from '../../config/colors'
-export default function CircleButton({onPress}) {
+import { EvilIcons } from "@expo/vector-icons";
+import React from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import colors from "../../config/colors";
+import defaultStyle from "../../config/styles";
+
+export default function CircleButton({ onPress }) {
   return (
-    <View style={styles.button}>
-        <TouchableOpacity onPress={onPress}>
+    <View style={[defaultStyle.background, styles.button]}>
+      <TouchableOpacity onPress={onPress}>
         <EvilIcons name="check" size={40} />
-        </TouchableOpacity>
+      </TouchableOpacity>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
-    button:{
-        height:60,
-        width:60,
-        borderRadius:60,
-        elevation:4,
-        backgroundColor:colors.white,
-        marginTop:10,
-        alignItems:'center',
-        justifyContent:'center'
-    }
-})
+  button: {
+    height: 60,
+    width: 60,
+    borderRadius: 50,
+    elevation: 4,
+    backgroundColor: colors.white,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    marginLeft: 10,
+  },
+});

@@ -1,22 +1,29 @@
-import {  Alert, Dimensions, FlatList, Image, StatusBar, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import Templates from "../Templates/Template";
-import CircleButton from "../Components/CircleButton/CircleButton";
-import colors from "../config/colors";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Dimensions,
+  Image,
+  Alert,
+} from "react-native";
+import AppText from "../components/AppText/AppText";
+import Screen from "../components/Screen/Screen";
+import ActivityIndicator from "../components/ActivityIndicator/Activityindicator";
+import Template from "../Templates/Template";
+import dateFormat from "dateformat";
+import CircleButton from "../components/CircleButton/CircleButton";
+import * as Print from "expo-print";
 import Toast from "react-native-root-toast";
-import ActivityIndicator from "../Components/ActivityIndicator/ActivityIndicator";
-import dateFormat, { masks } from "dateformat";
-import * as Print from 'expo-print';
-import { shareAsync } from 'expo-sharing';
-import Temp1 from "../Components/TemplateCodes/Temp1";
-import Temp2 from "../Components/TemplateCodes/Temp2";
-import Temp3 from "../Components/TemplateCodes/Temp3";
+import Temp1 from "../components/TemplateCodes/Temp1";
+import Temp2 from "../components/TemplateCodes/Temp2";
+import Temp3 from "../components/TemplateCodes/Temp3";
+import { shareAsync } from "expo-sharing";
 
-
-
-export default function PickTemplate({ route,navigation }) {
-  const [loading,setLoading] = useState(false);
-  const data = Templates.map((template, index) => ({
+export default function PickTemplate({ route }) {
+  const [loading, setLoading] = useState(false);
+  const data = Template.map((template, index) => ({
     key: template.key,
     photo: template.img,
   }));
@@ -33,124 +40,174 @@ export default function PickTemplate({ route,navigation }) {
   }
 
   const newDate = GetTime(new Date());
-  // const [html,setHtml] = useState('');
+
   const { width, height } = Dimensions.get("screen");
   const ITEM_WIDTH = width * 0.76;
   const ITEM_HEIGHT = ITEM_WIDTH * 1.47;
 
   const allData = route.params.allData;
+  const {
+    Company_Contact,
+    Company_address,
+    Company_email,
+    Company_logo,
+    Company_name,
+    FinalAmount,
+    Items,
+    Tax,
+    color,
+    customerAddress,
+    customerName,
+    customerPhone,
+  } = allData;
 
   const PrintPDF = async (html) => {
-    try{
+    try {
       const { uri } = await Print.printToFileAsync({
-        html
+        html,
       });
-      console.log('File has been saved to:', uri);
-      await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
-  
-  
-    }catch(err){
+      console.log("File has been saved to:", uri);
+      await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+    } catch (err) {
       console.log(err);
-        Alert.alert("Make shure You have Internet Connection or contact @+91 8530730017");
     }
-  }
-
-  // console.log(allData);
-   const {Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone} = allData;
-
-
+  };
   const createInvoice = async (name) => {
     setLoading(true);
-    if(!name){
-        setLoading(false);
-        return Toast.show("Something go Wrong",Toast.durations.SHORT);
-
+    if (!name) {
+      setLoading(false);
+      return Toast.show("Something go Wrong", Toast.durations.SHORT);
     }
     let newHtml;
-    switch (name){
-        case 'Temp1':
-          //  {console.log("Temp 1 is selected");}
-           newHtml = Temp1(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone,newDate);
-           await PrintPDF(newHtml);
-           break;
-        case 'Temp2':
-          // {console.log("Temp 2 is selected");}
-          newHtml = Temp2(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone,newDate);
-          await PrintPDF(newHtml);
-          break;
-        case 'Temp3':
-          // {console.log("Temp 1 is selected");}
-          newHtml = Temp3(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone,newDate);
-          await PrintPDF(newHtml);
-          break;
-        default:
-          setLoading(false);
-            return Toast.show("Not Available Yet",Toast.durations.SHORT);
+    switch (name) {
+      case "Temp1":
+        //  {console.log("Temp 1 is selected");}
+        newHtml = Temp1(
+          Company_Contact,
+          Company_address,
+          Company_email,
+          Company_logo,
+          Company_name,
+          FinalAmount,
+          Items,
+          Tax,
+          color,
+          customerAddress,
+          customerName,
+          customerPhone,
+          newDate
+        );
+        await PrintPDF(newHtml);
+        break;
+      case "Temp2":
+        // {console.log("Temp 2 is selected");}
+        newHtml = Temp2(
+          Company_Contact,
+          Company_address,
+          Company_email,
+          Company_logo,
+          Company_name,
+          FinalAmount,
+          Items,
+          Tax,
+          color,
+          customerAddress,
+          customerName,
+          customerPhone,
+          newDate
+        );
+        await PrintPDF(newHtml);
+        break;
+      case "Temp3":
+        // {console.log("Temp 1 is selected");}
+        newHtml = Temp3(
+          Company_Contact,
+          Company_address,
+          Company_email,
+          Company_logo,
+          Company_name,
+          FinalAmount,
+          Items,
+          Tax,
+          color,
+          customerAddress,
+          customerName,
+          customerPhone,
+          newDate
+        );
+        await PrintPDF(newHtml);
+        break;
+      default:
+        setLoading(false);
+        return Toast.show("Not Available Yet", Toast.durations.SHORT);
     }
     setLoading(false);
-  }
+  };
 
   return (
     <>
-    <ActivityIndicator visible={loading} />
-    <View style={styles.container}>
-      {/* <StatusBar hidden /> */}
-      <FlatList
-        data={data}
-        keyExtractor={(item) => item.key}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        pagingEnabled
-        renderItem={({ item, index }) => {
-          return (
-            <View
-              style={{ width, justifyContent: "center", alignItems: "center",paddingBottom:20 }}
-            >
+      <ActivityIndicator visible={loading} />
+      <View style={styles.container}>
+        <FlatList
+          data={data}
+          keyExtractor={(item) => item.key}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          renderItem={({ item, index }) => {
+            return (
               <View
                 style={{
-                  borderRadius: 18,
-                  shadowColor: "#000",
-                  shadowOpacity: 1,
-                  shadowRadius: 20,
-                  shadowOffset: {
-                    width: 0,
-                    height: 0,
-                  },
-                  borderRadius: 18,
-                  padding: 12,
-                  backgroundColor: 'transparent',
-                  width:width*1.5,
-                  justifyContent:'center',
-                  alignItems:'center'
-
+                  width,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  paddingBottom: 20,
                 }}
               >
                 <View
                   style={{
-                    width: ITEM_WIDTH,
-                    height: ITEM_HEIGHT,
-                    overflow: "hidden",
-                    alignItems: "center",
                     borderRadius: 18,
+                    shadowColor: "#000",
+                    shadowOpacity: 1,
+                    shadowRadius: 20,
+                    shadowOffset: {
+                      width: 0,
+                      height: 0,
+                    },
+                    borderRadius: 18,
+                    padding: 12,
+                    backgroundColor: "transparent",
+                    width: width * 1.5,
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
-                  <Image
-                    source={item.photo}
+                  <View
                     style={{
-                      width: ITEM_WIDTH ,
+                      width: ITEM_WIDTH,
                       height: ITEM_HEIGHT,
-                      resizeMode: "contain",
+                      overflow: "hidden",
+                      alignItems: "center",
+                      borderRadius: 18,
                     }}
-                  />
-                  
+                  >
+                    <Image
+                      source={item.photo}
+                      style={{
+                        width: ITEM_WIDTH,
+                        height: ITEM_HEIGHT,
+                        resizeMode: "contain",
+                      }}
+                    />
+                  </View>
                 </View>
+
+                <CircleButton onPress={() => createInvoice(item.key)} />
               </View>
-              <CircleButton onPress={() => createInvoice(item.key)} />
-            </View>
-          );
-        }}
-      />
-    </View>
+            );
+          }}
+        />
+      </View>
     </>
   );
 }
@@ -160,6 +217,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    
   },
 });

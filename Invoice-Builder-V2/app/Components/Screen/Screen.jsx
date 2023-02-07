@@ -1,21 +1,24 @@
-import { StyleSheet, Text, View,SafeAreaView, ScrollView } from 'react-native'
-import React from 'react';
-import Constants from 'expo-constants'
-
-export default function Screen({children,style}) {
+import React from "react";
+import { View, Text, SafeAreaView, StyleSheet, ScrollView } from "react-native";
+import Constants from "expo-constants";
+export default function Screen({ children, style }) {
   return (
-   <SafeAreaView 
-      style={[styles.screen,style]}>
-        <ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
+    <SafeAreaView style={[styles.screen, style]}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          flex: 1,
+        }}
+      >
         {children}
-        </ScrollView>
-   </SafeAreaView>
-  )
+      </ScrollView>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
-    screen:{
-        paddingTop: Constants.statusBarHeight,
-        flex:1
-    }
-})
+  screen: {
+    paddingTop: Constants.statusBarHeight,
+    flex: 1,
+  },
+});

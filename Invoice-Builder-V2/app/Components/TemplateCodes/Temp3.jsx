@@ -1,19 +1,32 @@
-import Toast from "react-native-root-toast"
-import InvoiceColors from "../../config/InvoiceColors";
+import Toast from "react-native-root-toast";
+import InvoiceColors from "../../config/InvoiceColor";
 
-const Temp3 = (Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone,newDate) => {
-    
-    // if(!Company_Contact || !Company_address || !Company_email || !Company_logo || !Company_name || !FinalAmount ||  !Items || !Tax || !color || !customerAddress || !customerName || !customerPhone){
-    //   console.log(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone);
-    //         return Toast.show("Data Invalid",Toast.durations.SHORT);
-    // }
+const Temp3 = (
+  Company_Contact,
+  Company_address,
+  Company_email,
+  Company_logo,
+  Company_name,
+  FinalAmount,
+  Items,
+  Tax,
+  color,
+  customerAddress,
+  customerName,
+  customerPhone,
+  newDate
+) => {
+  // if(!Company_Contact || !Company_address || !Company_email || !Company_logo || !Company_name || !FinalAmount ||  !Items || !Tax || !color || !customerAddress || !customerName || !customerPhone){
+  //   console.log(Company_Contact,Company_address,Company_email,Company_logo,Company_name,FinalAmount,Items,Tax,color,customerAddress,customerName,customerPhone);
+  //         return Toast.show("Data Invalid",Toast.durations.SHORT);
+  // }
 
-    const timeElapsed = Date.now();
-    const today = new Date(timeElapsed);
-    
-    let newColor = InvoiceColors[color];
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
 
-    return `
+  let newColor = InvoiceColors[color];
+
+  return `
     <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />  
@@ -102,9 +115,8 @@ const Temp3 = (Company_Contact,Company_address,Company_email,Company_logo,Compan
                 <th style="width: 250px; height:20px;">price</th>
                 <th style="width: 250px; height:20px;">Amount</th>
             </tr>
-            ${Items.map(item => {
-
-                return `<tr style="border-bottom: 1pt solid #070505; height: 60px;">
+            ${Items.map((item) => {
+              return `<tr style="border-bottom: 1pt solid #070505; height: 60px;">
                 <td style="text-align: center;height: 30px;
                 padding-left: 10px;
                 text-align:start;
@@ -112,7 +124,7 @@ const Temp3 = (Company_Contact,Company_address,Company_email,Company_logo,Compan
                 <td style="text-align: center;height: 30px;">${item["Item_Price"]}</td>
                 <td style="text-align: center;height: 30px;">${item["Item_Quantity"]}</td>
                 <td style="text-align: center;height: 30px;">${item["Final_Price"]}</td>
-            </tr>`
+            </tr>`;
             })}
         </table>
         </div>
@@ -154,11 +166,7 @@ border-radius: 0;
 <table >
     <tr style="height: 40px;">
         <th>SUBTOTAL:</th>
-        <th>${
-
-            parseInt(FinalAmount) - parseInt(Tax)
-
-      }</th>
+        <th>${parseInt(FinalAmount) - parseInt(Tax)}</th>
     </tr>
     <tr style="height: 40px;">
         <th>Tax:</th>
@@ -182,6 +190,6 @@ border-radius: 0;
 </body>
 </html>
     `;
-}
+};
 
 export default Temp3;
